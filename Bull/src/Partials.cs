@@ -38,8 +38,6 @@ public class Partials
     {
         var partialPath = Path.Combine(new[] { partialsDir, name + ".hbs" });
 
-        //Console.WriteLine(partialPath);
-
         if (!File.Exists(partialPath))
         {
             return "";

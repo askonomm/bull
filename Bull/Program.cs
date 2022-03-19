@@ -28,6 +28,15 @@ class Program
     /// 
     /// </summary>
     /// <param name="dir"></param>
+    private static void RegisterHelpers(string dir)
+    {
+        Helpers.RegisterContentGenerationHelper(dir);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dir"></param>
     private static void BuildContentItems(string dir)
     {
         var template = new Template(dir);
@@ -77,6 +86,9 @@ class Program
     /// <param name="dir"></param>
     private static void Build(string dir)
     {
+        // Register helpers
+        RegisterHelpers(dir);
+
         // Build content items.
         BuildContentItems(dir);
 

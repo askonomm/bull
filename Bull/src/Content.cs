@@ -27,6 +27,17 @@ public class Content
 
         return contentItems;
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dir"></param>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public static List<ContentItem> GetFromRequest(string dir, ContentGenerationRequest request)
+    {
+        return Get(Path.Combine(new[] { dir, request.From }));
+    }
     
     /// <summary>
     /// 
