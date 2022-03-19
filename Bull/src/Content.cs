@@ -6,8 +6,9 @@ namespace Bull;
 public class Content
 {
     /// <summary>
-    /// 
+    /// Returns a list of content items.
     /// </summary>
+    /// <param name="dir"></param>
     /// <returns></returns>
     public static List<ContentItem> Get(string dir)
     {
