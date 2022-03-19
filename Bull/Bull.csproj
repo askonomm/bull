@@ -2,15 +2,25 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+      <LangVersion>10.0</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+      <LangVersion>10.0</LangVersion>
+    </PropertyGroup>
     <ItemGroup>
+      <PackageReference Include="Handlebars.Net" Version="2.1.0" />
       <PackageReference Include="Markdig" Version="0.28.0" />
-      <PackageReference Include="ObjectDumper.NET-lof" Version="1.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="src\Records\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="src\Records\" />
+    </ItemGroup>
 </Project>

@@ -8,31 +8,20 @@ public class Content
     /// <summary>
     /// 
     /// </summary>
-    private readonly string _dir;
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="dir"></param>
-    public Content(string dir) => _dir = dir;
-    
-    /// <summary>
-    /// 
-    /// </summary>
     /// <returns></returns>
-    public List<ContentItem> GetAll()
+    public static List<ContentItem> Get(string dir)
     {
         var contentItems = new List<ContentItem>();
 
-        if (!Directory.Exists(_dir))
+        if (!Directory.Exists(dir))
         {
             Console.WriteLine("Directory does not exist.");
             return new List<ContentItem>();
         }
 
-        foreach (var contentItemPath in GetPaths(_dir))
+        foreach (var contentItemPath in GetPaths(dir))
         {
-            contentItems.Add(GetItem(contentItemPath));
+            contentItems.Add(GetItem(dir, contentItemPath));
         }
 
         return contentItems;
@@ -61,10 +50,10 @@ public class Content
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
-    private string ComposeSlugFromPath(string path)
+    private static string ComposeSlugFromPath(string dir, string path)
     {
         return path
-            .Replace(_dir, "")
+            .Replace(dir, "")
             .Replace(".md", "")[1..];
     }
 
@@ -108,18 +97,20 @@ public class Content
         return Markdown.ToHtml(rx.Replace(contents, "").Trim());
     }
 
+
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="rootDir"></param>
     /// <param name="path"></param>
     /// <returns></returns>
-    private ContentItem GetItem(string path)
+    private static ContentItem GetItem(string rootDir, string path)
     {
         var contents = File.ReadAllText(path);
 
         return new ContentItem
         {
-            Slug = ComposeSlugFromPath(path),
+            Slug = ComposeSlugFromPath(rootDir, path),
             Path = path,
             Meta = ComposeMetaFromContents(contents),
             Entry = ComposeEntryFromContents(contents)
