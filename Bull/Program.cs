@@ -1,6 +1,4 @@
-﻿using HandlebarsDotNet;
-
-namespace Bull;
+﻿namespace Bull;
 
 class Program
 {
@@ -57,6 +55,8 @@ class Program
     /// <param name="dir"></param>
     private static void BuildPages(string dir)
     {
+        var template = new Template(dir);
+
         foreach(var page in Pages.Get(dir))
         {
             Console.WriteLine("Writing {0}", page.Slug);
@@ -64,7 +64,7 @@ class Program
             var writePath = Path.Combine(new[] { dir, "public", page.Slug });
 
             CreateParentDirs(Path.Combine(new[] { dir, "public", page.Dir }));
-            Write(writePath, Template.From(page.Path)(new
+            Write(writePath, template.From(page.Path)(new
             {
                 x = false,
             }));

@@ -39,7 +39,7 @@ public class Template
         }
 
         var templateContents = GetContents(templateName);
-        var template = Handlebars.Compile(templateContents);
+        var template = Handlebars.Compile(Partials.Parse(_dir, templateContents));
 
         templates.Add(templateName, template);
 
@@ -51,10 +51,10 @@ public class Template
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
-    public static HandlebarsTemplate<object, object> From(string path)
+    public HandlebarsTemplate<object, object> From(string path)
     {
         var contents = !File.Exists(path) ? "" : File.ReadAllText(path);
 
-        return Handlebars.Compile(contents);
+        return Handlebars.Compile(Partials.Parse(_dir, contents));
     }
 }
