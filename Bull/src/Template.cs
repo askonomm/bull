@@ -4,9 +4,20 @@ namespace Bull;
 
 public class Template
 {
+    /// <summary>
+    /// 
+    /// </summary>
     private readonly string _dir;
+
+    /// <summary>
+    /// 
+    /// </summary>
     private readonly IDictionary<string, HandlebarsTemplate<object, object>> templates;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dir"></param>
     public Template(string dir)
     {
         _dir = dir;

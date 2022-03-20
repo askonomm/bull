@@ -2,6 +2,6 @@
 
 public record ContentGroup
 {
-    public string Identifier { get; init; }
-    public List<ContentItem> Items { get; init; }
+    public string Identifier { get; init; } = default!;
+    public List<ContentItem> Items { get; init; } = default!;
 }

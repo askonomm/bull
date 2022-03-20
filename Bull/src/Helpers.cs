@@ -22,6 +22,8 @@ public class Helpers
                 items = ContentGenerator.Generate(new ContentGenerationRequest
                 {
                     From = Path.Combine(new[] { dir, (string)arguments["from"] }),
+                    Order = (string)arguments["order"],
+                    GroupBy = (string)arguments["group-by"] ?? null, 
                 })
             });
         });

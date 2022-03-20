@@ -28,6 +28,59 @@ class Program
     /// 
     /// </summary>
     /// <param name="dir"></param>
+    private static void EmptyPublicDir(string dir)
+    {
+        var files = Directory.GetFiles(Path.Combine(new[] { dir, "public" }));
+        var directories = Directory.GetDirectories(Path.Combine(new[] { dir, "public" }));
+
+        foreach(var file in files)
+        {
+            File.Delete(file);
+        }
+
+        foreach(var directory in directories)
+        {
+            Directory.Delete(directory, true);
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dir"></param>
+    private static void CopyAssets(string dir)
+    {
+        var assets = GetAssetPaths(dir);
+
+        foreach(var asset in assets)
+        {
+            Console.WriteLine("Copying {0}", asset.Replace(dir, "")[1..]);
+            File.Copy(asset, asset.Replace(dir, Path.Combine(new[] { dir, "public" })));
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    private static IEnumerable<string> GetAssetPaths(string path)
+    {
+        var filePaths = Directory.GetFiles(path).Where(item => !item.EndsWith(".md") && !item.EndsWith(".hbs")).ToArray();
+        var directoryPaths = Directory.GetDirectories(path);
+
+        foreach (var directoryPath in directoryPaths)
+        {
+            filePaths = filePaths.Concat(GetAssetPaths(directoryPath)).ToArray();
+        }
+
+        return filePaths;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dir"></param>
     private static void RegisterHelpers(string dir)
     {
         Helpers.RegisterContentGenerationHelper(dir);
@@ -86,6 +139,12 @@ class Program
     /// <param name="dir"></param>
     private static void Build(string dir)
     {
+        // Empty public dir
+        EmptyPublicDir(dir);
+
+        // Copy assets to public dir
+        CopyAssets(dir);
+
         // Register helpers
         RegisterHelpers(dir);
 
