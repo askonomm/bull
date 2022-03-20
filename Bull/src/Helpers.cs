@@ -4,6 +4,10 @@ namespace Bull;
 
 public class Helpers
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dir"></param>
     public static void RegisterContentGenerationHelper(string dir)
     {
         Handlebars.RegisterHelper("content", (output, options, context, arguments) =>
@@ -13,9 +17,12 @@ public class Helpers
                 options.Inverse();
             }
 
-            var content = Content.GetFromRequest(dir, new ContentGenerationRequest
+            options.Template(output, new
             {
-                From = (string)arguments["from"]
+                items = Content.GetFromRequest(dir, new ContentGenerationRequest
+                {
+                    From = (string)arguments["from"],
+                })
             });
         });
     }
