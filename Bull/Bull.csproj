@@ -1,26 +1,29 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
+        <PublishTrimmed>true</PublishTrimmed>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-      <LangVersion>10.0</LangVersion>
+        <LangVersion>10.0</LangVersion>
     </PropertyGroup>
+
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-      <LangVersion>10.0</LangVersion>
+        <LangVersion>10.0</LangVersion>
     </PropertyGroup>
+
     <ItemGroup>
-      <PackageReference Include="Handlebars.Net" Version="2.1.0" />
-      <PackageReference Include="Markdig" Version="0.28.0" />
+        <PackageReference Include="Handlebars.Net" Version="2.1.0" />
+        <PackageReference Include="Markdig" Version="0.28.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="src\Records\" />
+        <None Remove="src\Records\" />
     </ItemGroup>
+
     <ItemGroup>
-      <Folder Include="src\Records\" />
+        <Folder Include="src\Records\" />
     </ItemGroup>
 </Project>
