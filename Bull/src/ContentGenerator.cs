@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace Bull;
 
 public class ContentGenerator
@@ -52,6 +50,17 @@ public class ContentGenerator
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="item"></param>
+    /// <param name="identifier"></param>
+    /// <returns></returns>
+    private static string GroupByIdentifier(ContentItem item, string identifier)
+    {
+        return item.Meta[identifier];
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
     private static List<ContentGroup> GenerateGroupList(ContentGenerationRequest request)
@@ -66,7 +75,7 @@ public class ContentGenerator
         try
         {
             // Group by
-            var groupedContent = content.GroupBy(i => i.Meta[request.GroupBy], (key, items) => new ContentGroup
+            var groupedContent = content.GroupBy(i => GroupByIdentifier(i, request.GroupBy), (key, items) => new ContentGroup
             {
                 Identifier = key,
                 Items = items.ToList(),

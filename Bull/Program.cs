@@ -19,9 +19,9 @@ class Program
     /// </summary>
     /// <param name="path"></param>
     /// <param name="contents"></param>
-    private static async void Write(string path, string contents)
+    private static void Write(string path, string contents)
     {
-        await File.WriteAllTextAsync(path, contents);
+        File.WriteAllText(path, contents);
     }
 
     /// <summary>
@@ -55,6 +55,13 @@ class Program
         foreach(var asset in assets)
         {
             Console.WriteLine("Copying {0}", asset.Replace(dir, "")[1..]);
+
+            var parentDir = String.Join("/", asset
+                .Replace(dir, Path.Combine(new[] { dir, "public" }))
+                .Split("/")
+                .SkipLast(1));
+
+            CreateParentDirs(parentDir);
             File.Copy(asset, asset.Replace(dir, Path.Combine(new[] { dir, "public" })));
         }
     }

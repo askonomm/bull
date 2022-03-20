@@ -31,7 +31,7 @@ public class Template
     /// <returns></returns>
     private string GetContents(string templateName)
     {
-        string[] pathParts = {_dir, "_layouts", templateName, ".hbs"};
+        string[] pathParts = {_dir, "layouts", templateName + ".hbs"};
         var path = Path.Combine(pathParts);
 
         return !File.Exists(path) ? "" : File.ReadAllText(path);
