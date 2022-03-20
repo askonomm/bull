@@ -34,9 +34,9 @@ public class Content
     /// <param name="dir"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    public static List<ContentItem> GetFromRequest(string dir, ContentGenerationRequest request)
+    public static List<ContentItem> GetFromRequest(ContentGenerationRequest request)
     {
-        return Get(Path.Combine(new[] { dir, request.From }));
+        return Get(Path.Combine(new[] { request.From }));
     }
     
     /// <summary>

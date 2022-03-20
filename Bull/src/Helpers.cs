@@ -19,9 +19,9 @@ public class Helpers
 
             options.Template(output, new
             {
-                items = Content.GetFromRequest(dir, new ContentGenerationRequest
+                items = ContentGenerator.Generate(new ContentGenerationRequest
                 {
-                    From = (string)arguments["from"],
+                    From = Path.Combine(new[] { dir, (string)arguments["from"] }),
                 })
             });
         });

@@ -2,13 +2,42 @@ namespace Bull;
 
 public class ContentGenerator
 {
-    public static List<ContentItem> GenerateItemList(ContentGenerationRequest request)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public static object Generate(ContentGenerationRequest request)
     {
-        return new List<ContentItem>();
+        if (request.GroupBy != null)
+        {
+            return GenerateGroupList(request);
+        }
+
+        return GenerateItemList(request);
     }
 
-    public static List<ContentGroup> GenerateGroupList(ContentGenerationRequest request)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    private static List<ContentItem> GenerateItemList(ContentGenerationRequest request)
     {
+        var content = Content.Get(request.From);
+
+        return content;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    private static List<ContentGroup> GenerateGroupList(ContentGenerationRequest request)
+    {
+        var content = Content.Get(request.From);
+
         return new List<ContentGroup>();
     }
 }
