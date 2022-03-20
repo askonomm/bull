@@ -55,6 +55,20 @@ public class ContentGenerator
     /// <returns></returns>
     private static string GroupByIdentifier(ContentItem item, string identifier)
     {
+        if (identifier.Contains("|"))
+        {
+            var key = identifier.Split("|")[0];
+            var modifier = String.Join("|", identifier.Split("|")[1..]);
+
+            // Date
+            if (key == "date")
+            {
+                var dateTime = DateTime.Parse(item.Meta["date"]);
+
+                return dateTime.ToString(modifier);
+            }
+        }
+
         return item.Meta[identifier];
     }
 
