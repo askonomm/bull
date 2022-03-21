@@ -4,6 +4,12 @@ namespace Bull;
 
 public class Helpers
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="arguments"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
     private static string? GetStringOrNull(Arguments arguments, string key)
     {
         try
@@ -15,6 +21,12 @@ public class Helpers
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="arguments"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
     private static int? GetIntOrNull(Arguments arguments, string key)
     {
         try
@@ -55,8 +67,27 @@ public class Helpers
         });
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public static void RegisterDateFormatHelper()
     {
-        //Handlebars.RegisterHelper("date-format", ())
+        Handlebars.RegisterHelper("date-format", (writer, context, parameters) =>
+        {
+            var format = GetStringOrNull(parameters, "format");
+
+            if (format == null)
+            {
+                writer.WriteSafeString("");
+            }
+
+            try
+            {
+                writer.WriteSafeString(DateTime.Parse((string)parameters[0]).ToString(format));
+            } catch(Exception)
+            {
+                writer.WriteSafeString("");
+            }
+        });
     }
 }

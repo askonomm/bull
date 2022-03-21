@@ -91,6 +91,7 @@ class Program
     private static void RegisterHelpers(string dir)
     {
         Helpers.RegisterContentGenerationHelper(dir);
+        Helpers.RegisterDateFormatHelper();
     }
 
     /// <summary>
@@ -113,7 +114,7 @@ class Program
             CreateParentDirs(Path.Combine(new[] { dir, "public", contentItem.Slug }));
             Write(writePath, template.Get(layoutName)(new
             {
-                x = contentItem
+                Current = contentItem
             }));
         }
     }
@@ -135,7 +136,10 @@ class Program
             CreateParentDirs(Path.Combine(new[] { dir, "public", page.Dir }));
             Write(writePath, template.From(page.Path)(new
             {
-                x = false,
+                Current = new
+                {
+                    page.Slug,
+                }
             }));
         }
     }
