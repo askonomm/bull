@@ -7,31 +7,11 @@ public class Template
     /// <summary>
     /// 
     /// </summary>
-    private readonly string _dir;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    private readonly IDictionary<string, HandlebarsTemplate<object, object>> templates;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="dir"></param>
-    public Template(string dir)
-    {
-        _dir = dir;
-        templates = new Dictionary<string, HandlebarsTemplate<object, object>>();
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
     /// <param name="templateName"></param>
     /// <returns></returns>
-    private string GetContents(string templateName)
+    private static string GetContents(string rootDir, string templateName)
     {
-        string[] pathParts = {_dir, "layouts", templateName + ".hbs"};
+        string[] pathParts = {rootDir, "layouts", templateName + ".hbs"};
         var path = Path.Combine(pathParts);
 
         return !File.Exists(path) ? "" : File.ReadAllText(path);
@@ -42,17 +22,10 @@ public class Template
     /// </summary>
     /// <param name="templateName"></param>
     /// <returns></returns>
-    public HandlebarsTemplate<object, object> Get(string templateName)
+    public static HandlebarsTemplate<object, object> Get(string rootDir, string templateName)
     {
-        if (templates.ContainsKey(templateName))
-        {
-            return templates[templateName];
-        }
-
-        var templateContents = GetContents(templateName);
-        var template = Handlebars.Compile(Partials.Parse(_dir, templateContents));
-
-        templates.Add(templateName, template);
+        var templateContents = GetContents(rootDir, templateName);
+        var template = Handlebars.Compile(Partials.Parse(rootDir, templateContents));
 
         return template;
     }
@@ -62,10 +35,10 @@ public class Template
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
-    public HandlebarsTemplate<object, object> From(string path)
+    public static HandlebarsTemplate<object, object> From(string rootDir, string path)
     {
         var contents = !File.Exists(path) ? "" : File.ReadAllText(path);
 
-        return Handlebars.Compile(Partials.Parse(_dir, contents));
+        return Handlebars.Compile(Partials.Parse(rootDir, contents));
     }
 }

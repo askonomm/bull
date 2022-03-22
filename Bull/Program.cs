@@ -100,10 +100,8 @@ class Program
     /// <param name="dir"></param>
     private static void BuildContentItems(string dir)
     {
-        var template = new Template(dir);
-
         // Build individual content items
-        foreach (var contentItem in Content.Get(dir))
+        Parallel.ForEach(Content.Get(dir), contentItem =>
         {
             Console.WriteLine("Writing {0}", contentItem.Slug);
 
@@ -112,11 +110,11 @@ class Program
             var writePath = Path.Combine(new[] { dir, "public", contentItem.Slug, "index.html" });
 
             CreateParentDirs(Path.Combine(new[] { dir, "public", contentItem.Slug }));
-            Write(writePath, template.Get(layoutName)(new
+            Write(writePath, Template.Get(dir, layoutName)(new
             {
                 Current = contentItem
             }));
-        }
+        });
     }
 
     /// <summary>
@@ -125,8 +123,6 @@ class Program
     /// <param name="dir"></param>
     private static void BuildPages(string dir)
     {
-        var template = new Template(dir);
-
         foreach(var page in Pages.Get(dir))
         {
             Console.WriteLine("Writing {0}", page.Slug);
@@ -134,7 +130,7 @@ class Program
             var writePath = Path.Combine(new[] { dir, "public", page.Slug });
 
             CreateParentDirs(Path.Combine(new[] { dir, "public", page.Dir }));
-            Write(writePath, template.From(page.Path)(new
+            Write(writePath, Template.From(dir, page.Path)(new
             {
                 Current = new
                 {

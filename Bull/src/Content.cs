@@ -20,10 +20,10 @@ public class Content
             return new List<ContentItem>();
         }
 
-        foreach (var contentItemPath in GetPaths(dir))
+        Parallel.ForEach(GetPaths(dir), contentItemPath =>
         {
             contentItems.Add(GetItem(dir, contentItemPath));
-        }
+        });
 
         return contentItems;
     }

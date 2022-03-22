@@ -17,10 +17,10 @@ public class Pages
             return new List<Page>();
         }
 
-        foreach (var pagePath in GetPaths(dir))
+        Parallel.ForEach(GetPaths(dir), pagePath =>
         {
             pages.Add(GetItem(dir, pagePath));
-        }
+        });
 
         return pages;
     }
