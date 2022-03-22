@@ -2,6 +2,9 @@
 
 namespace Bull;
 
+/// <summary>
+/// 
+/// </summary>
 public class Helpers
 {
     /// <summary>

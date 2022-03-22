@@ -1,5 +1,8 @@
 namespace Bull;
 
+/// <summary>
+/// 
+/// </summary>
 public class Pages
 {
     /// <summary>

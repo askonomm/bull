@@ -2,6 +2,9 @@ using HandlebarsDotNet;
 
 namespace Bull;
 
+/// <summary>
+/// 
+/// </summary>
 public class Template
 {
     /// <summary>

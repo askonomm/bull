@@ -3,6 +3,9 @@ using Markdig;
 
 namespace Bull;
 
+/// <summary>
+/// 
+/// </summary>
 public class Content
 {
     /// <summary>
